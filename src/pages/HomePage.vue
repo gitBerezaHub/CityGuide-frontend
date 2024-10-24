@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TryButton from '@/components/TryButton.vue'
 import AppHeader from '@/components/AppHeader.vue'
+import router from '@/router'
 </script>
 
 <template>
@@ -12,7 +13,7 @@ import AppHeader from '@/components/AppHeader.vue'
           <h2>Путешествуй с <p class="content-top__slogan-AI gradient-text">Искусственным Интеллектом!</p></h2>
         </div>
         <div class="content__start">
-          <TryButton/>
+          <TryButton @click="router.push('/request')">Попробовать!</TryButton>
         </div>
       </div>
       <div>

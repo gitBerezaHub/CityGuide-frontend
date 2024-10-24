@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <button class="button">Попробовать!</button>
+  <button class="button"><slot></slot></button>
 </template>
 
 <style scoped lang="scss">
