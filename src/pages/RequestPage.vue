@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import FileInput from '@/components/FileInput.vue'
+import CityChoice from '@/components/CityChoice.vue'
 
 const requestText = ref('')
 const placeholderExamples = ['Исторические здания', 'Экопарки', 'Тематические бары', 'Торговые центры']
@@ -19,7 +20,12 @@ const inputType: InputType = ref('file')
 <template>
   <div class="wrapper">
     <div class="slogan__wrapper">
-      <h1 class="slogan__text">Что хотите посмотреть?</h1>
+      <h1 class="slogan__text">Выберите город и режим</h1>
+    </div>
+    <CityChoice/>
+    <div class="input-types">
+      <p @click="inputType = 'text'" :class="inputType==='text' ? 'input-types__text-active' : ''">Текст</p>
+      <p @click="inputType = 'file'" :class="inputType==='file' ? 'input-types__file-active' : ''">Фото</p>
     </div>
     <div v-if="inputType==='text'" class="search__wrapper-text">
       <input class="search__input-text" type="text" v-model="requestText" :placeholder='`${generatePlaceholder()}...`'>
@@ -28,11 +34,6 @@ const inputType: InputType = ref('file')
     <div v-else class="search__wrapper-file">
       <FileInput />
     </div>
-    <div class="input-types">
-      <p @click="inputType = 'text'" :class="inputType==='text' ? 'input-types__text-active' : ''">Текст</p>
-      <p @click="inputType = 'file'" :class="inputType==='file' ? 'input-types__file-active' : ''">Фото</p>
-    </div>
-
   </div>
 </template>
 
@@ -42,7 +43,6 @@ const inputType: InputType = ref('file')
   flex-direction: column;
   align-items: center;
   width: 100svw;
-  height: 100svh;
 
   .slogan__wrapper {
     margin-top: 60px;
