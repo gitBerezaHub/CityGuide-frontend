@@ -5,7 +5,7 @@ import router from '@/router'
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="homepage-wrapper">
     <AppHeader/>
     <div class="content">
       <div class="content-top">
@@ -52,7 +52,7 @@ import router from '@/router'
   }
 }
 
-.wrapper {
+.homepage-wrapper {
   .content {
     margin-top: 50px;
     display: flex;

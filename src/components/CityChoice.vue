@@ -14,6 +14,13 @@
 </template>
 
 <style scoped lang="scss">
+@media screen and (min-width: 900px) {
+  .city-choice-select {
+    width: 25svw !important;
+    border-width: 4px !important;
+  }
+}
+
 .city-choice-select {
   margin-top: 30px;
   background-color: #fff;
