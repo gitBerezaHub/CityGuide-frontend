@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { Photo } from '@/types/types'
+import { useApiStore } from '@/store/useApiStore'
+import { Place } from '@/types/types'
 
 const URL_AI = 'http://127.0.0.1:5045/ai/places/'
 const URL_PLACES = 'http://localhost:5008/places/get/batch'
@@ -10,51 +11,66 @@ const devData = [
   'N1779665538'
 ]
 
-export function sendText (prompt: string, city: string) {
+export async function sendText (prompt: string, city: string) {
   if (mode === 'development') {
-    return getPlaces(devData)
+    const result = await getPlaces(devData)
+    saveData(result)
+    return result
   }
   const formData = new FormData()
   formData.append('prompt', prompt)
   formData.append('city', city)
 
-  axios
+  await axios
     .post(`${URL_AI}text`, formData)
     .then((response) => {
-      return response
+      const result = getPlaces(response.data)
+      saveData(result)
+      return result
     })
     .catch((error) => {
       return error
     })
 }
 
-export function sendPhoto (photo: Photo, city: string) {
-  console.log(photo)
+export function sendPhoto (photo: object, city: string) {
   if (mode === 'development') {
-    return getPlaces(devData)
+    const result = await getPlaces(devData)
+    saveData(result)
+    return result
   }
-
   const formData = new FormData()
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   formData.append('image', photo)
   formData.append('city', city)
 
   axios
     .post(`${URL_AI}img`, formData)
     .then((response) => {
-      return response
+      const result = getPlaces(response.data)
+      saveData(result)
+      return result
     })
     .catch((error) => {
       return error
     })
 }
 
-export function getPlaces (IDs: string[]) {
-  axios
+export async function getPlaces (IDs: string[]): Promise<Place[]> {
+  let data: Place[] = []
+  await axios
     .post(URL_PLACES, IDs)
     .then((response) => {
-      console.log(response)
+      data = response.data
     })
     .catch((error) => {
-      console.log(error)
+      return error
     })
+  return data
+}
+
+function saveData (result) {
+  const store = useApiStore()
+  store.places = result
 }
