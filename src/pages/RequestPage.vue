@@ -2,23 +2,40 @@
 import { ref } from 'vue'
 import FileInput from '@/components/FileInput.vue'
 import CityChoice from '@/components/CityChoice.vue'
+import { sendPhoto, sendText } from '../../api/AiAPI'
+import { get } from 'axios'
 
-const requestText = ref('')
 const placeholderExamples = ['Исторические здания', 'Экопарки', 'Тематические бары', 'Торговые центры']
-
 const generatePlaceholder: string = () => {
   const randomIndex: number = Math.round(Math.random() * 3)
   return placeholderExamples[randomIndex]
 }
 
 type InputType = 'text' | 'file'
-
 const inputType: InputType = ref('text')
 
 const city = ref('')
-
 const getCity = (value) => {
   city.value = value
+}
+
+const photo = ref(null)
+const getPhoto = (value) => {
+  photo.value = value
+}
+
+const requestText = ref('')
+const apiTextRequest = () => {
+  if (city.value && requestText.value) {
+    sendText(requestText.value, city.value)
+  }
+}
+
+const apiPhotoRequest = (value) => {
+  getPhoto(value)
+  if (city.value && photo.value) {
+    sendPhoto(photo.value, city.value)
+  }
 }
 
 </script>
@@ -48,10 +65,10 @@ const getCity = (value) => {
         <div v-if="inputType==='text'" class="search__wrapper-text">
           <input class="search__input-text" type="text" v-model="requestText"
                  :placeholder='`${generatePlaceholder()}...`'>
-          <img class="add-image" src="@/assets/find.svg" alt="" width="30">
+          <img @click="apiTextRequest" class="add-image" src="@/assets/find.svg" alt="" width="30">
         </div>
         <div v-else class="search__wrapper-file">
-          <FileInput/>
+          <FileInput @api-photo-request="apiPhotoRequest"/>
         </div>
       </div>
     </div>

@@ -3,8 +3,9 @@ import { onMounted, ref } from 'vue'
 import TryButton from '@/components/TryButton.vue'
 
 const isImageChosen = ref(false)
+let photo = null
 const getImage = () => {
-  const photo = document.getElementById('img').files[0]
+  photo = document.getElementById('img').files[0]
   if (photo) {
     isImageChosen.value = true
     const img = document.getElementById('preview')
@@ -26,7 +27,7 @@ onMounted(() => {
     <div :class="isImageChosen ? 'preview__wrapper' : ''">
       <img class="preview" id="preview" src="#" alt="">
     </div>
-    <TryButton v-if="isImageChosen" class="findBtn">Найти!</TryButton>
+    <TryButton @click="$emit('api-photo-request', photo)" v-if="isImageChosen" class="findBtn">Найти!</TryButton>
   </div>
 </template>
 
