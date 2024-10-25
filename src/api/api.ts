@@ -23,8 +23,8 @@ export async function sendText (prompt: string, city: string) {
 
   await axios
     .post(`${URL_AI}text`, formData)
-    .then((response) => {
-      const result = getPlaces(response.data)
+    .then(async (response) => {
+      const result = await getPlaces(response.data)
       saveData(result)
       return result
     })
@@ -33,7 +33,7 @@ export async function sendText (prompt: string, city: string) {
     })
 }
 
-export function sendPhoto (photo: object, city: string) {
+export async function sendPhoto (photo: object, city: string) {
   if (mode === 'development') {
     const result = await getPlaces(devData)
     saveData(result)
@@ -45,10 +45,10 @@ export function sendPhoto (photo: object, city: string) {
   formData.append('image', photo)
   formData.append('city', city)
 
-  axios
+  await axios
     .post(`${URL_AI}img`, formData)
-    .then((response) => {
-      const result = getPlaces(response.data)
+    .then(async (response) => {
+      const result = await getPlaces(response.data)
       saveData(result)
       return result
     })
@@ -58,19 +58,19 @@ export function sendPhoto (photo: object, city: string) {
 }
 
 export async function getPlaces (IDs: string[]): Promise<Place[]> {
-  let data: Place[] = []
+  let places: Place[] = []
   await axios
     .post(URL_PLACES, IDs)
     .then((response) => {
-      data = response.data
+      places = response.data
     })
     .catch((error) => {
       return error
     })
-  return data
+  return places
 }
 
-function saveData (result) {
+function saveData (result: Place[]) {
   const store = useApiStore()
   store.places = result
 }
