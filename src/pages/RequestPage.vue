@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import FileInput from '@/components/FileInput.vue'
 import CityChoice from '@/components/CityChoice.vue'
-import { sendPhoto, sendText } from '../../api/AiAPI'
+import { sendPhoto, sendText } from '../../api/api'
 import { get } from 'axios'
 
 const placeholderExamples = ['Исторические здания', 'Экопарки', 'Тематические бары', 'Торговые центры']
