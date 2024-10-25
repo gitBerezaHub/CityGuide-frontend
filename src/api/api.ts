@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Photo } from '@/types/types'
 
 const URL_AI = 'http://127.0.0.1:5045/ai/places/'
 const URL_PLACES = 'http://localhost:5008/places/get/batch'
@@ -27,7 +28,8 @@ export function sendText (prompt: string, city: string) {
     })
 }
 
-export function sendPhoto (photo: object, city: string) {
+export function sendPhoto (photo: Photo, city: string) {
+  console.log(photo)
   if (mode === 'development') {
     return getPlaces(devData)
   }
