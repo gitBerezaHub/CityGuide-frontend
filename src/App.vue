@@ -4,6 +4,7 @@
 
 <style lang="scss">
 @import "@/assets/styles/reset.css";
+
 #app {
   font-family: 'Inter', sans-serif;
 }

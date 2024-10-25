@@ -1,15 +1,15 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 </script>
 
 <template>
   <div class="header">
-    <img src="@/assets/city.svg" alt="" width="50">
+    <img alt="" src="@/assets/city.svg" width="50">
     <h1 class="header__name gradient-text"><b>City Guide</b></h1>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .header {
   padding: 30px;
   display: flex;

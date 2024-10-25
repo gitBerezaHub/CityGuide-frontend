@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import TryButton from '@/components/TryButton.vue'
+<script lang="ts" setup>
+import TryButton from '@/components/GradientButton.vue'
 import AppHeader from '@/components/AppHeader.vue'
 import router from '@/router'
 </script>
@@ -28,7 +28,7 @@ import router from '@/router'
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @media screen and (min-width: 900px) {
   .content-top {
     display: flex;

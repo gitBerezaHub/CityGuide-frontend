@@ -1,9 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue'
 import FileInput from '@/components/FileInput.vue'
 import CityChoice from '@/components/CityChoice.vue'
 import { sendPhoto, sendText } from '../../api/api'
-import { get } from 'axios'
 
 const placeholderExamples = ['Исторические здания', 'Экопарки', 'Тематические бары', 'Торговые центры']
 const generatePlaceholder: string = () => {
@@ -41,7 +40,7 @@ const apiPhotoRequest = (value) => {
 </script>
 
 <template>
-  <div class="requestpage-wrapper">
+  <div class="request-page-wrapper">
     <h1 class="header__text">Что будем искать?</h1>
     <div class="content__wrapper">
       <div class="content__settings">
@@ -51,21 +50,21 @@ const apiPhotoRequest = (value) => {
         <CityChoice @choose-city="getCity"/>
         <div class="input-types">
           <div class="input-types__text-wrapper">
-            <p class="input-types__text" @click="inputType = 'text'"
-               :class="inputType==='text' ? 'input-types__text-active' : ''">Текст</p>
+            <p :class="inputType==='text' ? 'input-types__text-active' : ''" class="input-types__text"
+               @click="inputType = 'text'">Текст</p>
           </div>
           <div class="input-types__file-wrapper">
-            <p class="input-types__file" @click="inputType = 'file'"
-               :class="inputType==='file' ? 'input-types__file-active' : ''">Фото</p>
+            <p :class="inputType==='file' ? 'input-types__file-active' : ''" class="input-types__file"
+               @click="inputType = 'file'">Фото</p>
           </div>
         </div>
       </div>
 
       <div class="content__input">
         <div v-if="inputType==='text'" class="search__wrapper-text">
-          <input class="search__input-text" type="text" v-model="requestText"
-                 :placeholder='`${generatePlaceholder()}...`'>
-          <img @click="apiTextRequest" class="add-image" src="@/assets/find.svg" alt="" width="30">
+          <input v-model="requestText" :placeholder='`${generatePlaceholder()}...`' class="search__input-text"
+                 type="text">
+          <img alt="" class="add-image" src="@/assets/find.svg" width="30" @click="apiTextRequest">
         </div>
         <div v-else class="search__wrapper-file">
           <FileInput @api-photo-request="apiPhotoRequest"/>
@@ -75,7 +74,7 @@ const apiPhotoRequest = (value) => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 @media screen and (min-width: 900px) {
   .content__wrapper {
@@ -123,7 +122,7 @@ const apiPhotoRequest = (value) => {
   }
 }
 
-.requestpage-wrapper {
+.request-page-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
