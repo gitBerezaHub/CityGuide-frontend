@@ -15,6 +15,12 @@ type InputType = 'text' | 'file'
 
 const inputType: InputType = ref('text')
 
+const city = ref('')
+
+const getCity = (value) => {
+  city.value = value
+}
+
 </script>
 
 <template>
@@ -25,7 +31,7 @@ const inputType: InputType = ref('text')
         <div class="slogan__wrapper">
           <h1 class="slogan__text">Выберите город и режим</h1>
         </div>
-        <CityChoice/>
+        <CityChoice @choose-city="getCity"/>
         <div class="input-types">
           <div class="input-types__text-wrapper">
             <p class="input-types__text" @click="inputType = 'text'"
@@ -152,6 +158,7 @@ const inputType: InputType = ref('text')
 
     .add-image {
       margin-left: 6px;
+      cursor: pointer;
     }
   }
 

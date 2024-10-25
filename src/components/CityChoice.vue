@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
+const city = ref('')
 
 </script>
 
 <template>
   <div class="city-choice">
-    <select class="city-choice-select" name="city" id="city">
+    <select class="city-choice-select" name="city" id="city" v-model="city" @change="$emit('choose-city', city)">
       <option value="nino">Нижний Новгород</option>
       <option value="yar">Ярославль</option>
       <option value="vlad">Владимир</option>
