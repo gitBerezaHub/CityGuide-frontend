@@ -73,4 +73,6 @@ export async function getPlaces (IDs: string[]): Promise<Place[]> {
 function saveData (result: Place[]) {
   const store = useApiStore()
   store.places = result
+
+  localStorage.setItem('places', JSON.stringify(result))
 }

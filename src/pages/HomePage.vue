@@ -2,6 +2,11 @@
 import TryButton from '@/components/GradientButton.vue'
 import AppHeader from '@/components/AppHeader.vue'
 import router from '@/router'
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  localStorage.setItem('isFirstVisit', 'false')
+})
 </script>
 
 <template>
