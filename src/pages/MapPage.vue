@@ -2,26 +2,21 @@
   <div class="wrapper">
     <h1 class="header__text">Вот, что нам удалось найти</h1>
     <div class="yandex-map__wrapper">
-      <yandex-map
-        v-model="map"
-        :settings="{
+      <yandex-map :settings="{
         location: {
           center: [apiStore.places[0].longitude, apiStore.places[0].latitude],
-          // center: [39.895275, 57.625294],
-          zoom: 19,
+          zoom: 9,
         },
-      }"
-        width="100%"
-        height="100%"
-      >
+      }" height="500px">
         <yandex-map-default-scheme-layer />
         <yandex-map-default-features-layer/>
         <yandex-map-marker
           v-for="(marker, index) in markers"
           :key="index"
-          :marker-id="index"
           :settings="marker"
-        />
+        >
+          <div class="marker"/>
+        </yandex-map-marker>
       </yandex-map>
     </div>
   </div>
@@ -46,10 +41,12 @@ function fillMarkers () {
   for (let i = 0; i < apiStore.places.length; i++) {
     markers.value.push({
       coordinates: [apiStore.places[i].longitude, apiStore.places[i].latitude],
+      title: apiStore.places[i].name,
       onClick: handleClick
     })
   }
 }
+
 onMounted(() => {
   fillMarkers()
 })
@@ -74,5 +71,19 @@ onMounted(() => {
     width: 50vw;
     height: 50vh;
   }
+}
+
+.marker {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: #ff0000;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  line-height: 20px;
 }
 </style>
