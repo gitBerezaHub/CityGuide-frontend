@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import FileInput from '@/components/FileInput.vue'
 import CityChoice from '@/components/CityChoice.vue'
 import { sendPhoto, sendText } from '@/api/api'
+import { useApiStore } from '@/store/useApiStore'
+import { storeToRefs } from 'pinia'
+import router from '@/router'
 
 const placeholderExamples = ['Исторические здания', 'Экопарки', 'Тематические бары', 'Торговые центры']
 const generatePlaceholder: string = () => {
@@ -37,6 +40,14 @@ const apiPhotoRequest = (value) => {
   }
 }
 
+const apiStore = useApiStore()
+const { places } = storeToRefs(apiStore)
+
+watch(places, () => {
+  if (places) {
+    router.push('/map')
+  }
+})
 </script>
 
 <template>

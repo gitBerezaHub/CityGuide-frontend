@@ -1,11 +1,78 @@
-<script lang="ts" setup>
+<template>
+  <div class="wrapper">
+    <h1 class="header__text">Вот, что нам удалось найти</h1>
+    <div class="yandex-map__wrapper">
+      <yandex-map
+        v-model="map"
+        :settings="{
+        location: {
+          center: [apiStore.places[0].longitude, apiStore.places[0].latitude],
+          // center: [39.895275, 57.625294],
+          zoom: 19,
+        },
+      }"
+        width="100%"
+        height="100%"
+      >
+        <yandex-map-default-scheme-layer />
+        <yandex-map-default-features-layer/>
+        <yandex-map-marker
+          v-for="(marker, index) in markers"
+          :key="index"
+          :marker-id="index"
+          :settings="marker"
+        />
+      </yandex-map>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { onMounted, ref, shallowRef } from 'vue'
+import type { YMap } from '@yandex/ymaps3-types'
+import { YandexMap, YandexMapDefaultFeaturesLayer, YandexMapDefaultSchemeLayer, YandexMapMarker } from 'vue-yandex-maps'
+import { YMapMarkerProps } from '@yandex/ymaps3-types/imperative/YMapMarker'
+import { useApiStore } from '@/store/useApiStore'
+
+const map = shallowRef<null | YMap>(null)
+
+const apiStore = useApiStore()
+console.log(apiStore.places[0].latitude)
+
+const markers: YMapMarkerProps[] = ref([])
+const handleClick = (event: MouseEvent) => console.log(event)
+
+function fillMarkers () {
+  for (let i = 0; i < apiStore.places.length; i++) {
+    markers.value.push({
+      coordinates: [apiStore.places[i].longitude, apiStore.places[i].latitude],
+      onClick: handleClick
+    })
+  }
+}
+onMounted(() => {
+  fillMarkers()
+})
 
 </script>
 
-<template>
-  <div></div>
-</template>
-
 <style lang="scss" scoped>
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+  .header__text {
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+
+  .yandex-map__wrapper {
+    width: 50vw;
+    height: 50vh;
+  }
+}
 </style>
