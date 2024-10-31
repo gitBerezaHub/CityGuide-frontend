@@ -72,7 +72,54 @@ export async function getPlaces (IDs: string[]): Promise<Place[]> {
 
 function saveData (result: Place[]) {
   const store = useApiStore()
-  store.places = result
+  const test = [
+    {
+      xid: 'N1361341279',
+      name: 'Кирило-Афанасиевский мужской монастырь',
+      description: 'Спасо-Афанасиевский монастырь — мужской монастырь Ярославской епархии Русской православной церкви, расположенный в историческом центре Ярославля',
+      categories: [
+        'religion',
+        'monasteries',
+        'interesting_places'
+      ],
+      city: 'Ярославль',
+      wikiId: 'Q4221355',
+      latitude: 57.625294,
+      longitude: 39.895275
+    },
+    {
+      xid: 'N1361341111',
+      name: 'Кондакова слобода',
+      description: 'Кондакова слобода',
+      categories: [
+        'religion',
+        'monasteries',
+        'interesting_places'
+      ],
+      city: 'Ярославль',
+      wikiId: 'Q4221111',
+      latitude: 57.628227,
+      longitude: 39.867276
+    },
+    {
+      xid: 'N1361341000',
+      name: 'улица Чайковского, 1А',
+      description: 'улица Чайковского, 1А',
+      categories: [
+        'religion',
+        'monasteries',
+        'interesting_places'
+      ],
+      city: 'Ярославль',
+      wikiId: 'Q4221000',
+      latitude: 57.619539,
+      longitude: 39.870658
+    }
+  ]
 
-  localStorage.setItem('places', JSON.stringify(result))
+  // store.places = result
+  store.places = test
+
+  // localStorage.setItem('places', JSON.stringify(result))
+  localStorage.setItem('places', JSON.stringify(test))
 }
