@@ -23,7 +23,6 @@ console.log(props.markers)
     width: 25vw;
     margin-top: 0 !important;
     margin-right: 10px;
-    border-radius: 8px 0 0 8px !important;
     max-height: unset !important;
 
     .content__markers__list-item {
@@ -34,7 +33,7 @@ console.log(props.markers)
 
 .content__markers__wrapper {
   background-color: #fff;
-  border-radius: 0 0 8px 8px;
+  border-radius: 8px;
   margin-top: 10px;
   overflow: auto;
   max-height: 30vh;

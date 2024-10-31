@@ -106,6 +106,8 @@ onMounted(() => {
     background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
 
     .yandex-map__wrapper {
+      border-radius: 8px;
+      overflow: hidden;
       width: 100%;
       height: 50svh;
     }
