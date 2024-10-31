@@ -8,9 +8,6 @@
               :key="marker.xid" class="content__markers__list-item">
             <h1 class="content__markers__title">{{ marker.title }}</h1>
             <p class="content__markers__description">{{ marker.description }}</p>
-            <p class="content__markers__description">{{ marker.description }}</p>
-            <p class="content__markers__description">{{ marker.description }}</p>
-            <p class="content__markers__description">{{ marker.description }}</p>
           </li>
         </ul>
       </div>
