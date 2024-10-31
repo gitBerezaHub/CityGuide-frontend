@@ -8,6 +8,9 @@
               :key="marker.xid" class="content__markers__list-item">
             <h1 class="content__markers__title">{{ marker.title }}</h1>
             <p class="content__markers__description">{{ marker.description }}</p>
+            <p class="content__markers__description">{{ marker.description }}</p>
+            <p class="content__markers__description">{{ marker.description }}</p>
+            <p class="content__markers__description">{{ marker.description }}</p>
           </li>
         </ul>
       </div>
@@ -80,6 +83,7 @@ onMounted(() => {
       margin-bottom: 0 !important;
       margin-right: 10px;
       border-radius: 8px 0 0 8px !important;
+      max-height: unset !important;
 
       .content__markers__list-item {
         margin-bottom: 25px !important;
@@ -119,6 +123,8 @@ onMounted(() => {
       background-color: #fff;
       border-radius: 8px 8px 0 0;
       margin-bottom: 10px;
+      overflow: auto;
+      max-height: 30vh;
 
       .content__markers__list {
         padding: 10px;
