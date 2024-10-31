@@ -49,7 +49,7 @@ console.log(apiStore.places[0].latitude)
 
 const markers: YMapMarkerProps[] = ref([])
 
-const chosenMarker = ref('N1361341279')
+const chosenMarker = ref('')
 
 function fillMarkers () {
   for (let i = 0; i < apiStore.places.length; i++) {
