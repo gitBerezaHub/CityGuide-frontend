@@ -46,8 +46,8 @@ const places = [
 let coords
 let names
 let center
-let markers = []
-let isMobile = window.innerWidth < 900
+const markers = []
+const isMobile = window.innerWidth < 900
 let markersList
 let markersWrapper
 
@@ -103,10 +103,9 @@ function drawRoute (myMap) {
     mapStateAutoApply: true,
     multiRoute: true
   }).then(function (route) {
-
     route.getPaths().options.set({
       strokeColor: 'f00',
-      opacity: 0.9,
+      opacity: 0.9
     })
 
     myMap.geoObjects.add(route)

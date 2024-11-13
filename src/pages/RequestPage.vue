@@ -43,11 +43,12 @@ const apiPhotoRequest = (value) => {
 const apiStore = useApiStore()
 const { places } = storeToRefs(apiStore)
 
-watch(places, () => {
-  if (places) {
-    router.push('/map')
-  }
-})
+// watch(places, () => {
+//   if (places) {
+//     // router.push('/map') <-- here
+//     location.href('@/pages/MapPage/index.html')
+//   }
+// })
 </script>
 
 <template>
@@ -75,7 +76,7 @@ watch(places, () => {
         <div v-if="inputType==='text'" class="search__wrapper-text">
           <input v-model="requestText" :placeholder='`${generatePlaceholder()}...`' class="search__input-text"
                  type="text">
-          <img alt="" class="add-image" src="@/assets/find.svg" width="30" @click="apiTextRequest">
+          <a href="http://localhost:63342/frontend/src/pages/MapPage/index.html"><img alt="" class="add-image" src="@/assets/find.svg" width="30"></a>
         </div>
         <div v-else class="search__wrapper-file">
           <FileInput @api-photo-request="apiPhotoRequest"/>

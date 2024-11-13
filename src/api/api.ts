@@ -119,9 +119,9 @@ function saveData (result: Place[]) {
 
   if (mode === 'development') {
     store.places = test
-    localStorage.setItem('places', JSON.stringify(test))
+    // localStorage.setItem('places', JSON.stringify(test))
   } else {
     store.places = result
-    localStorage.setItem('places', JSON.stringify(result))
+    // localStorage.setItem('places', JSON.stringify(result))
   }
 }
