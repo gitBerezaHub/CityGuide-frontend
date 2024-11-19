@@ -8,6 +8,7 @@ const city = ref('')
 <template>
   <div class="city-choice">
     <select id="city" v-model="city" class="city-choice-select" name="city" @change="$emit('choose-city', city)">
+      <option value="irkutsk">Иркутск</option>
       <option value="nino">Нижний Новгород</option>
       <option value="yar">Ярославль</option>
       <option value="vlad">Владимир</option>

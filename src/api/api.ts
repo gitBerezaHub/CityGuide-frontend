@@ -74,46 +74,74 @@ function saveData (result: Place[]) {
   const store = useApiStore()
   const test = [
     {
-      xid: 'N1361341279',
-      name: 'Кирило-Афанасиевский мужской монастырь',
-      description: 'Спасо-Афанасиевский монастырь — мужской монастырь Ярославской епархии Русской православной церкви, расположенный в историческом центре Ярославля',
+      xid: 'N0000000001',
+      name: 'Фонтан Шайба',
+      description: 'Круглый фонтан, светится ночью',
       categories: [
         'religion',
         'monasteries',
         'interesting_places'
       ],
-      city: 'Ярославль',
-      wikiId: 'Q4221355',
-      latitude: 57.625294,
-      longitude: 39.895275
+      city: 'Иркутск',
+      wikiId: 'Q0000001',
+      latitude: 52.286852,
+      longitude: 104.272239
     },
     {
-      xid: 'N1361341111',
-      name: 'Кондакова слобода',
-      description: 'Кондакова слобода',
+      xid: 'N0000000002',
+      name: 'Фонтан на сквере Кирова',
+      description: 'Фонтан на сквере Кирова',
       categories: [
         'religion',
         'monasteries',
         'interesting_places'
       ],
-      city: 'Ярославль',
-      wikiId: 'Q4221111',
-      latitude: 57.628227,
-      longitude: 39.867276
+      city: 'Иркутск',
+      wikiId: 'Q0000002',
+      latitude: 52.28774,
+      longitude: 104.28076
     },
     {
-      xid: 'N1361341000',
-      name: 'улица Чайковского, 1А',
-      description: 'улица Чайковского, 1А',
+      xid: 'N0000000003',
+      name: 'Фонтан',
+      description: 'Фонтан на сквере им. Охлопкова',
       categories: [
         'religion',
         'monasteries',
         'interesting_places'
       ],
-      city: 'Ярославль',
-      wikiId: 'Q4221000',
-      latitude: 57.619539,
-      longitude: 39.870658
+      city: 'Иркутск',
+      wikiId: 'Q0000003',
+      latitude: 52.277042,
+      longitude: 104.280667
+    },
+    {
+      xid: 'N0000000004',
+      name: 'Фонтан у ДС Труд',
+      description: '',
+      categories: [
+        'religion',
+        'monasteries',
+        'interesting_places'
+      ],
+      city: 'Иркутск',
+      wikiId: 'Q0000004',
+      latitude: 52.277443,
+      longitude: 104.284431
+    },
+    {
+      xid: 'N0000000005',
+      name: 'Фонтан в ТЦ Модный',
+      description: '',
+      categories: [
+        'religion',
+        'monasteries',
+        'interesting_places'
+      ],
+      city: 'Иркутск',
+      wikiId: 'Q0000005',
+      latitude: 52.273243,
+      longitude: 104.290924
     }
   ]
 

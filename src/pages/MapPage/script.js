@@ -1,45 +1,45 @@
 const places = [
   {
-    xid: 'N1361341279',
-    name: 'Кирило-Афанасиевский мужской монастырь',
-    description: 'Спасо-Афанасиевский монастырь — мужской монастырь Ярославской епархии Русской православной церкви, расположенный в историческом центре Ярославля',
+    xid: 'N0000000003',
+    name: 'Фонтан у ДС Труд',
+    description: 'Прямоугольный фонтан, который светится ночью',
     categories: [
       'religion',
       'monasteries',
       'interesting_places'
     ],
-    city: 'Ярославль',
-    wikiId: 'Q4221355',
-    latitude: 57.625294,
-    longitude: 39.895275
+    city: 'Иркутск',
+    wikiId: 'Q0000003',
+    latitude: 52.276975,
+    longitude: 104.283472
   },
   {
-    xid: 'N1361341111',
-    name: 'Кондакова слобода',
-    description: 'Кондакова слобода',
+    xid: 'N0000000002',
+    name: 'Труд',
+    description: 'Дворец спорта',
     categories: [
       'religion',
       'monasteries',
       'interesting_places'
     ],
-    city: 'Ярославль',
-    wikiId: 'Q4221111',
-    latitude: 57.628227,
-    longitude: 39.867276
+    city: 'Иркутск',
+    wikiId: 'Q0000002',
+    latitude: 52.277443,
+    longitude: 104.284431
   },
   {
-    xid: 'N1361341000',
-    name: 'улица Чайковского, 1А',
-    description: 'улица Чайковского, 1А',
+    xid: 'N0000000005',
+    name: 'Модный квартал',
+    description: 'Торгово-развлекательный комплекс',
     categories: [
       'religion',
       'monasteries',
       'interesting_places'
     ],
-    city: 'Ярославль',
-    wikiId: 'Q4221000',
-    latitude: 57.619539,
-    longitude: 39.870658
+    city: 'Иркутск',
+    wikiId: 'Q0000005',
+    latitude: 52.273479,
+    longitude: 104.290645
   }
 ]
 
@@ -91,33 +91,46 @@ function fetchDetails () {
 }
 
 function drawMap () {
+  console.log(ymaps.multiRouter)
   const myMap = new ymaps.Map('map', {
     center: center,
-    zoom: 14
+    zoom: 14,
+    controls: []
   })
-  drawRoute(myMap)
+  // Создание экземпляра маршрута.
+  const multiRoute = new ymaps.multiRouter.MultiRoute({
+    referencePoints: coords,
+    params: {
+      // Тип маршрута: на общественном транспорте.
+      routingMode: 'masstransit'
+    }
+  }, {
+    // Автоматически устанавливать границы карты так,
+    // чтобы маршрут был виден целиком.
+    boundsAutoApply: true
+  })
+
+  // Добавление маршрута на карту.
+  myMap.geoObjects.add(multiRoute)
+  // drawRoute(myMap)
 }
 
 function drawRoute (myMap) {
   ymaps.route(coords, {
-    mapStateAutoApply: true,
-    multiRoute: true
+    multiRoute: false,
+    routingMode: 'pedestrian'
   }).then(function (route) {
-    route.getPaths().options.set({
-      strokeColor: 'f00',
-      opacity: 0.9
-    })
-
+    route.options.set('mapStateAutoApply', true)
+    // route.options.set('routingMode', 'pedestrian')
     myMap.geoObjects.add(route)
-
-    const points = route.getWayPoints()
-
-    for (let i = 0; i < names.length; i++) {
-      points.get(i).properties.set('iconContent', i + 1)
-    }
-
-    points.options.set('preset', 'twirl#redStretchyIcon')
-  })
+    // const points = route.getWayPoints()
+    // for (let i = 0; i < names.length; i++) {
+    //   points.get(i).properties.set('iconContent', i + 1)
+    // }
+    // points.options.set('preset', 'twirl#redStretchyIcon')
+  }, function (err) {
+    throw err
+  }, this)
 }
 
 function drawPlace (name, description) {
