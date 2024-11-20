@@ -11,7 +11,7 @@
 
 <style lang="scss" scoped>
 .header {
-  padding: 30px;
+  padding: 30px 0;
   display: flex;
   flex-direction: row;
   align-items: center;

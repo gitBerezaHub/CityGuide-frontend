@@ -27,7 +27,7 @@ onMounted(() => {
     <div :class="isImageChosen ? 'preview__wrapper' : ''">
       <img id="preview" alt="" class="preview" src="#">
     </div>
-    <TryButton v-if="isImageChosen" class="findBtn" @click="$emit('api-photo-request', photo)">Найти!</TryButton>
+<!--    <TryButton v-if="isImageChosen" class="findBtn" @click="$emit('api-photo-request', photo)">Найти!</TryButton>-->
   </div>
 </template>
 
@@ -46,14 +46,15 @@ onMounted(() => {
   align-items: center;
 
   .preview {
-    width: 80svw;
     border-radius: 6px;
+    max-width: calc(28vw - 20px);
   }
 
   .preview__wrapper {
     background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
     padding: 10px;
     border-radius: 16px;
+    max-width: 28vw;
   }
 
   .findBtn {

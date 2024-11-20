@@ -26,12 +26,11 @@ const city = ref('')
 }
 
 .city-choice-select {
-  margin-top: 30px;
   background-color: #fff;
   border: 2px solid #5468ff;
   border-radius: 8px;
   font-size: 16px;
-  height: 40px;
+  height: 46px;
   width: 50vw;
 }
 </style>

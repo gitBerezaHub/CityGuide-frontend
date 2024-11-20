@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import FileInput from '@/components/FileInput.vue'
 import CityChoice from '@/components/CityChoice.vue'
 import { sendPhoto, sendText } from '@/api/api'
 import { useApiStore } from '@/store/useApiStore'
 import { storeToRefs } from 'pinia'
-import router from '@/router'
+
+const linkToHtml = 'http://localhost:63342/frontend/src/pages/MapPage/index.html'
 
 const placeholderExamples = ['Исторические здания', 'Экопарки', 'Тематические бары', 'Торговые центры']
 const generatePlaceholder: string = () => {
@@ -53,165 +54,120 @@ const { places } = storeToRefs(apiStore)
 
 <template>
   <div class="request-page-wrapper">
+    <div class="logo">
+      <img alt="" src="@/assets/city.svg" width="50">
+      <h1 class="logo__name gradient-text"><b>City Guide</b></h1>
+    </div>
     <h1 class="header__text">Что будем искать?</h1>
     <div class="content__wrapper">
-      <div class="content__settings">
-        <div class="slogan__wrapper">
-          <h1 class="slogan__text">Выберите город и режим</h1>
-        </div>
-        <CityChoice @choose-city="getCity"/>
-        <div class="input-types">
-          <div class="input-types__text-wrapper">
-            <p :class="inputType==='text' ? 'input-types__text-active' : ''" class="input-types__text"
-               @click="inputType = 'text'">Текст</p>
-          </div>
-          <div class="input-types__file-wrapper">
-            <p :class="inputType==='file' ? 'input-types__file-active' : ''" class="input-types__file"
-               @click="inputType = 'file'">Фото</p>
-          </div>
-        </div>
+      <div class="slogan__wrapper">
+        <h1 class="slogan__text">Выберите город и введите запрос</h1>
       </div>
+      <div class="content__data">
+        <CityChoice @choose-city="getCity" class="content__data__city-choice"/>
 
-      <div class="content__input">
-        <div v-if="inputType==='text'" class="search__wrapper-text">
-          <input v-model="requestText" :placeholder='`${generatePlaceholder()}...`' class="search__input-text"
-                 type="text">
-          <a href="http://localhost:63342/frontend/src/pages/MapPage/index.html"><img alt="" class="add-image" src="@/assets/find.svg" width="30"></a>
-        </div>
-        <div v-else class="search__wrapper-file">
+        <div class="search__wrapper-file">
           <FileInput @api-photo-request="apiPhotoRequest"/>
         </div>
+
+        <div class="search__wrapper-text">
+          <textarea v-model="requestText" :placeholder='`${generatePlaceholder()}...`'
+                    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+                    class="search__input-text"></textarea>
+
+          <a :href="linkToHtml"><img alt="" class="find-btn-icon" src="@/assets/find.svg" width="30"></a>
+        </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-
-@media screen and (min-width: 900px) {
-  .content__wrapper {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .content__settings, .content__input {
-    width: 40svw;
-
-    .search__wrapper-text {
-      margin-top: 60px !important;
-      width: calc((75svw + 40px) / 2.5) !important;
-    }
-
-    .slogan__wrapper {
-      margin-bottom: 20px;
-    }
-  }
-
-  .input-types {
-    width: 35svw !important;
-    margin-top: 50px !important;
-
-    .input-types__text-wrapper,
-    .input-types__file-wrapper {
-      background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
-      padding: 4px;
-      border-radius: 12px;
-
-      .input-types__text,
-      .input-types__file {
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 8px;
-      }
-    }
-
-    .input-types__text-active,
-    .input-types__file-active {
-      background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
-      color: #fff;
-      border-bottom: none !important;
-    }
-  }
-}
-
 .request-page-wrapper {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .content__wrapper {
-    .content__settings,
-    .content__input {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-
-  .header__text {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    font-size: 40px;
-  }
-
-  .slogan__wrapper {
-    margin-top: 60px;
-
-    .slogan__text {
+  .logo {
+    position: absolute;
+    top: 30px;
+    left: 7.5vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .logo__name {
+      height: fit-content;
+      margin-left: 10px;
       font-size: 24px;
     }
   }
 
-  .search__wrapper-text {
-    width: calc(75svw + 40px);
-    display: flex;
-    align-items: center;
+  .header__text {
+    font-size: 40px;
     margin-top: 30px;
-    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
-    padding: 10px;
-    border-radius: 18px;
+  }
 
-    .search__input-text {
-      width: 75svw;
-      background-color: #fff;
-      border: none;
-      border-radius: 8px;
-      aspect-ratio: 8 / 1;
-      font-size: 18px;
+  .content__wrapper {
+    .slogan__wrapper {
+      margin-top: 70px;
+      width: 85vw;
+      text-align: start;
+      font-size: 28px;
+    }
 
-      &:focus {
-        outline: none;
+    .content__data {
+      .content__data__city-choice, .search__wrapper-text, .file-input-wrapper {
+        width: 25vw;
       }
-    }
 
-    .add-image {
-      margin-left: 6px;
-      cursor: pointer;
-    }
-  }
+      margin-top: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
 
-  .search__wrapper-file {
-    margin-top: 30px;
-  }
+      .content__data__city-choice {
+      }
 
-  .gradient-button {
-    top: 5%;
-  }
+      .search__wrapper-text {
+        display: flex;
+        flex-direction: row;
+        background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+        min-height: 34px;
+        height: fit-content;
+        //align-items: center;
+        justify-content: space-around;
+        border-radius: 8px;
+        padding: 4px 2px;
 
-  .input-types {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 70vw;
-    font-size: 20px;
+        background-color: #fff;
+        font-size: 16px;
 
-    .input-types__text-active {
-      border-bottom: 3px solid #5adaff;
-    }
+        .search__input-text {
+          width: calc(25vw - 30px - 20px - 4px);
+          min-height: 32px;
+          height: 32px;
+          border-radius: 6px;
+          border: none;
+          word-wrap: break-word;
+          resize: vertical;
+          font-size: 16px;
+          padding: 4px;
 
-    .input-types__file-active {
-      border-bottom: 3px solid #5adaff;
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .find-btn-icon {
+          padding-top: 4px;
+        }
+      }
+
+      .search__wrapper-file {
+      }
     }
   }
 }

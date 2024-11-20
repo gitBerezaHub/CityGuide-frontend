@@ -1,36 +1,8 @@
 const places = [
   {
-    xid: 'N0000000001',
-    name: 'Фонтан Шайба',
-    description: 'Круглый фонтан, светится ночью',
-    categories: [
-      'religion',
-      'monasteries',
-      'interesting_places'
-    ],
-    city: 'Иркутск',
-    wikiId: 'Q0000001',
-    latitude: 52.286852,
-    longitude: 104.272239
-  },
-  {
-    xid: 'N0000000002',
-    name: 'Фонтан на сквере Кирова',
-    description: 'Фонтан на сквере Кирова',
-    categories: [
-      'religion',
-      'monasteries',
-      'interesting_places'
-    ],
-    city: 'Иркутск',
-    wikiId: 'Q0000002',
-    latitude: 52.28774,
-    longitude: 104.28076
-  },
-  {
     xid: 'N0000000003',
-    name: 'Фонтан',
-    description: 'Фонтан на сквере им. Охлопкова',
+    name: 'Фонтан у ДС Труд',
+    description: 'Прямоугольный фонтан, который светится ночью',
     categories: [
       'religion',
       'monasteries',
@@ -38,27 +10,27 @@ const places = [
     ],
     city: 'Иркутск',
     wikiId: 'Q0000003',
-    latitude: 52.277042,
-    longitude: 104.280667
+    latitude: 52.276975,
+    longitude: 104.283472
   },
   {
-    xid: 'N0000000004',
-    name: 'Фонтан у ДС Труд',
-    description: '',
+    xid: 'N0000000002',
+    name: 'Труд',
+    description: 'Дворец спорта',
     categories: [
       'religion',
       'monasteries',
       'interesting_places'
     ],
     city: 'Иркутск',
-    wikiId: 'Q0000004',
+    wikiId: 'Q0000002',
     latitude: 52.277443,
     longitude: 104.284431
   },
   {
     xid: 'N0000000005',
-    name: 'Фонтан в ТЦ Модный',
-    description: '',
+    name: 'Модный квартал',
+    description: 'Торгово-развлекательный комплекс',
     categories: [
       'religion',
       'monasteries',
@@ -66,8 +38,8 @@ const places = [
     ],
     city: 'Иркутск',
     wikiId: 'Q0000005',
-    latitude: 52.273243,
-    longitude: 104.290924
+    latitude: 52.273479,
+    longitude: 104.290645
   }
 ]
 
@@ -115,7 +87,9 @@ function fetchDetails () {
 
   center = [places[0].latitude, places[0].longitude]
 
-  ymaps.ready(() => drawMap('pedestrian'))
+  // ymaps.ready(() => drawMap('pedestrian'))
+  // ymaps.ready(() => drawMap('masstransit'))
+  ymaps.ready(() => drawMap('auto'))
 }
 
 function drawMap (type) {

@@ -19,6 +19,7 @@ onMounted(() => {
 
 #app {
   font-family: 'Inter', sans-serif;
+  color: #2d3c31;
 }
 
 .gradient-text {

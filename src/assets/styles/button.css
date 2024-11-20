@@ -10,7 +10,7 @@
     cursor: pointer;
     display: inline-flex;
     font-family: "JetBrains Mono", monospace;
-    height: 62px;
+    height: 46px;
     justify-content: center;
     line-height: 1;
     list-style: none;
@@ -26,7 +26,7 @@
     touch-action: manipulation;
     white-space: nowrap;
     will-change: box-shadow, transform;
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .button:hover {
