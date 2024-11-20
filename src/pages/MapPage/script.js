@@ -1,19 +1,5 @@
 const places = [
   {
-    xid: 'N0000000003',
-    name: 'Фонтан у ДС Труд',
-    description: 'Прямоугольный фонтан, который светится ночью',
-    categories: [
-      'religion',
-      'monasteries',
-      'interesting_places'
-    ],
-    city: 'Иркутск',
-    wikiId: 'Q0000003',
-    latitude: 52.276975,
-    longitude: 104.283472
-  },
-  {
     xid: 'N0000000002',
     name: 'Труд',
     description: 'Дворец спорта',
@@ -40,6 +26,20 @@ const places = [
     wikiId: 'Q0000005',
     latitude: 52.273479,
     longitude: 104.290645
+  },
+  {
+    xid: 'N0000000003',
+    name: 'Фонтан у ДС Труд',
+    description: 'Прямоугольный фонтан, который светится ночью',
+    categories: [
+      'religion',
+      'monasteries',
+      'interesting_places'
+    ],
+    city: 'Иркутск',
+    wikiId: 'Q0000003',
+    latitude: 52.276975,
+    longitude: 104.283472
   }
 ]
 
@@ -50,6 +50,10 @@ const markers = []
 const isMobile = window.innerWidth < 900
 let markersList
 let markersWrapper
+let pedestrianRoute
+let masstransitRoute
+let autoRoute
+let myMap
 
 if (isMobile) {
   markersWrapper = document.getElementById('content__markers__wrapper-mobile')
@@ -87,18 +91,16 @@ function fetchDetails () {
 
   center = [places[0].latitude, places[0].longitude]
 
-  // ymaps.ready(() => drawMap('pedestrian'))
-  // ymaps.ready(() => drawMap('masstransit'))
-  ymaps.ready(() => drawMap('auto'))
+  ymaps.ready(drawMap)
 }
 
-function drawMap (type) {
-  const myMap = new ymaps.Map('map', {
+function drawMap () {
+  myMap = new ymaps.Map('map', {
     center: center,
     zoom: 14,
     controls: []
   })
-  const pedestrianRoute = new ymaps.multiRouter.MultiRoute({
+  pedestrianRoute = new ymaps.multiRouter.MultiRoute({
     referencePoints: coords,
     params: {
       routingMode: 'pedestrian'
@@ -106,7 +108,7 @@ function drawMap (type) {
   }, {
     boundsAutoApply: true
   })
-  const masstransitRoute = new ymaps.multiRouter.MultiRoute({
+  masstransitRoute = new ymaps.multiRouter.MultiRoute({
     referencePoints: coords,
     params: {
       routingMode: 'masstransit'
@@ -114,7 +116,7 @@ function drawMap (type) {
   }, {
     boundsAutoApply: true
   })
-  const autoRoute = new ymaps.multiRouter.MultiRoute({
+  autoRoute = new ymaps.multiRouter.MultiRoute({
     referencePoints: coords,
     params: {
       routingMode: 'auto'
@@ -123,9 +125,7 @@ function drawMap (type) {
     boundsAutoApply: true
   })
 
-  if (type === 'pedestrian') myMap.geoObjects.add(pedestrianRoute)
-  if (type === 'masstransit') myMap.geoObjects.add(masstransitRoute)
-  if (type === 'auto') myMap.geoObjects.add(autoRoute)
+  myMap.geoObjects.add(pedestrianRoute)
 }
 
 function drawPlace (name, description) {
@@ -139,3 +139,22 @@ function drawPlace (name, description) {
 
   markersList.appendChild(itemDiv)
 }
+
+const pdRadio = document.getElementById('pd')
+const atRadio = document.getElementById('at')
+const mtRadio = document.getElementById('mt')
+pdRadio.addEventListener('change', () => {
+  myMap.geoObjects.remove(autoRoute)
+  myMap.geoObjects.remove(masstransitRoute)
+  myMap.geoObjects.add(pedestrianRoute)
+})
+atRadio.addEventListener('change', () => {
+  myMap.geoObjects.remove(pedestrianRoute)
+  myMap.geoObjects.remove(masstransitRoute)
+  myMap.geoObjects.add(autoRoute)
+})
+mtRadio.addEventListener('change', () => {
+  myMap.geoObjects.remove(pedestrianRoute)
+  myMap.geoObjects.remove(autoRoute)
+  myMap.geoObjects.add(masstransitRoute)
+})
