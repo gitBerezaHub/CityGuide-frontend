@@ -41,10 +41,6 @@ onMounted(() => {
 }
 
 .file-input-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
   .preview {
     border-radius: 6px;
     max-width: calc(28vw - 20px);

@@ -44,6 +44,9 @@ const apiPhotoRequest = (value) => {
 const apiStore = useApiStore()
 const { places } = storeToRefs(apiStore)
 
+const isBuildRoute = ref(true)
+const markersQuantity = ref(0)
+
 // watch(places, () => {
 //   if (places) {
 //     // router.push('/map') <-- here
@@ -66,10 +69,6 @@ const { places } = storeToRefs(apiStore)
       <div class="content__data">
         <CityChoice @choose-city="getCity" class="content__data__city-choice"/>
 
-        <div class="search__wrapper-file">
-          <FileInput @api-photo-request="apiPhotoRequest"/>
-        </div>
-
         <div class="search__wrapper-text">
           <textarea v-model="requestText" :placeholder='`${generatePlaceholder()}...`'
                     oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
@@ -78,12 +77,26 @@ const { places } = storeToRefs(apiStore)
           <a :href="linkToHtml"><img alt="" class="find-btn-icon" src="@/assets/find.svg" width="30"></a>
         </div>
 
+        <div class="search__wrapper-file">
+          <div class="checkbox-wrapper-13">
+            <input id="check" type="checkbox" v-model="isBuildRoute">
+            <label for="check">Проложить маршрут</label>
+          </div>
+          <FileInput v-if="!isBuildRoute" @api-photo-request="apiPhotoRequest"/>
+          <div v-else class="markers-quantity">
+            <label class="markers-quantity-label" for="markersQuantity">Введите сколько точек хотите посетить: </label>
+            <input class="markers-quantity-input" id="markersQuantity" type="number" v-model="markersQuantity">
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+@import url('@/assets/styles/checkbox.css');
+
 .request-page-wrapper {
   width: 100vw;
   height: 100vh;
@@ -98,6 +111,7 @@ const { places } = storeToRefs(apiStore)
     display: flex;
     flex-direction: row;
     align-items: center;
+
     .logo__name {
       height: fit-content;
       margin-left: 10px;
@@ -119,17 +133,13 @@ const { places } = storeToRefs(apiStore)
     }
 
     .content__data {
-      .content__data__city-choice, .search__wrapper-text, .file-input-wrapper {
+      .content__data__city-choice, .search__wrapper-text, .search__wrapper-file {
         width: 25vw;
       }
-
       margin-top: 40px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-
-      .content__data__city-choice {
-      }
 
       .search__wrapper-text {
         display: flex;
@@ -137,11 +147,9 @@ const { places } = storeToRefs(apiStore)
         background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
         min-height: 34px;
         height: fit-content;
-        //align-items: center;
         justify-content: space-around;
         border-radius: 8px;
         padding: 4px 2px;
-
         background-color: #fff;
         font-size: 16px;
 
@@ -167,8 +175,33 @@ const { places } = storeToRefs(apiStore)
       }
 
       .search__wrapper-file {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        .markers-quantity {
+          .markers-quantity-label {
+            font-size: 20px;
+          }
+          .markers-quantity-input {
+            font-size: 20px;
+            width: 30px;
+          }
+        }
       }
     }
   }
 }
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 </style>
